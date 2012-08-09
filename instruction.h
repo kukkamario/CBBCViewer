@@ -21,7 +21,16 @@ enum OpCode {
 	OpCodeCount
 };
 
+void initCommandNames();
+void initFunctionNames();
+
 extern const char* OpCodeNames[OpCodeCount];
+
+#define COMMAND_ARRAY_SIZE 800
+extern char *commandNames[COMMAND_ARRAY_SIZE];
+
+#define FUNCTION_ARRAY_SIZE 791
+extern char *functionNames[FUNCTION_ARRAY_SIZE];
 
 struct CBInstruction {
 		CBInstruction() : mOpCode(OCUnknown), mData(0) {
@@ -38,7 +47,22 @@ inline ostream &operator << (ostream & s, const CBInstruction &i) {
 	for (qint32 ii = 0; ii < len; ii++) {
 		s << " ";
 	}
-	s << i.mData;
+	if (i.mOpCode == OCCommand) {
+		if (commandNames[i.mData]) {
+			s << commandNames[i.mData];
+		}
+		else {
+			s << i.mData;
+		}
+	}
+	else if (i.mOpCode == OCFunction) {
+		if (functionNames[i.mData]) {
+			s << functionNames[i.mData];
+		}
+		else {
+			s << i.mData;
+		}
+	}
 	return s;
 }
 
