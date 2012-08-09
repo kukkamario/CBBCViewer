@@ -63,6 +63,9 @@ inline ostream &operator << (ostream & s, const CBInstruction &i) {
 			s << i.mData;
 		}
 	}
+	else {
+		s << i.mData;
+	}
 	return s;
 }
 
